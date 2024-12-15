@@ -1,0 +1,75 @@
+def read_matrix():
+    matrix = []
+    for i in range(9):
+        row = []
+        for j in range(9):
+            num = int(input())
+            if num < 1 or num > 9:
+                num = int(input())
+            row.append(num)
+        matrix.append(row)
+
+def check_row(m, row):
+    condition = True
+    for i in range(len(m[row])):
+        for j in range(len(m[row])):
+            if m[row][i] == m[row][j] and i!= j:
+                condition = False
+    return condition
+
+def check_col(m,col):
+    condition = True
+    for i in range(len(m)):
+        for j in range(len([0])):
+            if m[i][col] == m[j][col] and i!= j:
+                condition = False
+    return condition
+
+def check_submatrix(m,row,col):
+    condition = True
+    for r in range(row,row+3):
+        for c in range(col,col+3):
+            for i in range(row,row+3):
+                for j in range(col,col+3):
+                    if m[r][c] == m[i][j] and (i != r or j != c):
+                        condition = False
+    return condition
+
+
+
+def check_sudoku(m):
+    for r in range(len(m)):
+        cond1 = check_row(m,r)
+    for r in range(len(m)):
+        for c in range(len(m[0])):
+            cond2 = check_col(m,c)
+    for r in range(len(m),len(m)-3,3):
+        for c in range(len(m[0]),len(m[0])-3,3):
+            cond3 = check_submatrix(m,r,c)
+
+    if cond1 == True and cond2 == True and cond3 == True:
+        return "the sudoku is correct solved"
+
+    else:
+        return "the sudoku is not completed or correct"
+    
+        
+
+
+
+# Example usage
+matrix = [
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 7, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9]
+]
+check_sudoku(matrix)
+
+
+
